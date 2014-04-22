@@ -61,6 +61,8 @@ class Request():
       self.url = url
     else:
       p_url = urlparse.urlparse(url)
+      if not p_url.scheme:
+        raise BurstException("No scheme provided (http:// or https://): " + str(url)) #could probably just default to http://
       self.url = urlparse.urlunparse(("", "") + p_url[2:])
       self.hostname = p_url.hostname
       if not self.hostname:
